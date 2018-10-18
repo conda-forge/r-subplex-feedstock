@@ -1,8 +1,0 @@
-c_compiler:
-- toolchain_c
-cran_mirror:
-- https://cran.r-project.org
-fortran_compiler:
-- toolchain_fort
-target_platform:
-- linux-64

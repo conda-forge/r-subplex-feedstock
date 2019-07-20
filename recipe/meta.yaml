@@ -15,7 +15,7 @@ source:
   sha256: ff94cf6b1560f78c31712c05bc2bc1b703339e09c7fc777ee94abf15fa7a8b81
 
 build:
-  number: 1001
+  number: 1002
   skip: true  # [win]
   rpaths:
     - lib/R/lib/
@@ -25,7 +25,8 @@ requirements:
   build:
     - {{ compiler('c') }}        # [not win]
     - {{ compiler('fortran') }}  # [not win]
-    - {{native}}toolchain        # [win]
+    - {{ compiler('m2w64_c') }}        # [win]
+    - {{ compiler('m2w64_fortran') }}        # [win]
     - {{posix}}filesystem        # [win]
     - {{posix}}make
   host:
@@ -49,6 +50,7 @@ about:
 
 extra:
   recipe-maintainers:
+    - conda-forge/r
     - dpryan79
     - nick-youngblut
     - johanneskoester

@@ -1,34 +1,35 @@
-{% set version = '1.5-4' %}
+{% set version = '1.6' %}
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
-{% set cran_mirror = 'https://cran.r-project.org' %}
 
 package:
   name: r-subplex
   version: {{ version|replace("-", "_") }}
 
 source:
-  fn: subplex_{{ version }}.tar.gz
   url:
     - {{ cran_mirror }}/src/contrib/subplex_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/subplex/subplex_{{ version }}.tar.gz
-  sha256: ff94cf6b1560f78c31712c05bc2bc1b703339e09c7fc777ee94abf15fa7a8b81
+  sha256: 0d05da1622fffcd20a01cc929fc6c2b7df40a8246e7018f7f1f3c175b774cbf9
 
 build:
-  number: 1003
-  skip: true  # [win]
+  merge_build_host: True  # [win]
+  number: 0
   rpaths:
     - lib/R/lib/
     - lib/
 
 requirements:
   build:
-    - {{ compiler('c') }}        # [not win]
-    - {{ compiler('fortran') }}  # [not win]
+    - {{ compiler('c') }}              # [not win]
     - {{ compiler('m2w64_c') }}        # [win]
-    - {{ compiler('m2w64_fortran') }}        # [win]
+    - {{ compiler('fortran') }}        # [not win]
+    - {{ compiler('m2w64_fortran') }}  # [win]
     - {{posix}}filesystem        # [win]
     - {{posix}}make
+    - {{posix}}sed               # [win]
+    - {{posix}}coreutils         # [win]
+    - {{posix}}zip               # [win]
   host:
     - r-base
   run:
@@ -45,10 +46,30 @@ about:
   license: GPL-3
   summary: The subplex algorithm for unconstrained optimization, developed by Tom Rowan <http://www.netlib.org/opt/subplex.tgz>.
   license_family: GPL3
-  license_file: '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3'  # [unix]
-  license_file: '{{ environ["PREFIX"] }}\R\share\licenses\GPL-3'  # [win]
+  license_file:
+    - '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3'
 
 extra:
   recipe-maintainers:
     - conda-forge/r
     - nick-youngblut
+
+# Package: subplex
+# Version: 1.6
+# Date: 2020-02-21
+# Title: Unconstrained Optimization using the Subplex Algorithm
+# Authors@R: c(person(given=c("Aaron","A."),family="King", role=c("aut","trl","cre"),email="kingaa@umich.edu"), person(given=c("Tom"),family="Rowan",role=c("aut")))
+# License: GPL-3
+# Depends: R(>= 2.5.1)
+# URL: https://github.com/kingaa/subplex/
+# BugReports: https://github.com/kingaa/subplex/issues/
+# Description: The subplex algorithm for unconstrained optimization, developed by Tom Rowan <http://www.netlib.org/opt/subplex.tgz>.
+# Encoding: UTF-8
+# RoxygenNote: 6.1.1
+# Collate: 'subplex-package.R' 'subplex.R'
+# NeedsCompilation: yes
+# Packaged: 2020-02-21 18:38:09 UTC; kingaa
+# Author: Aaron A. King [aut, trl, cre], Tom Rowan [aut]
+# Maintainer: Aaron A. King <kingaa@umich.edu>
+# Repository: CRAN
+# Date/Publication: 2020-02-23 17:30:03 UTC

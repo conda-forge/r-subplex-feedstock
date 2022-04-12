@@ -1,4 +1,4 @@
-{% set version = "1.7" %}
+{% set version = "1.8" %}
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -10,7 +10,7 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/subplex_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/subplex/subplex_{{ version }}.tar.gz
-  sha256: d5ecf4a484936d71cb294f08c3968ef5a8dcbdc861bfc0e97e3b1ab99afff887
+  sha256: 3bc31d8990380c9f790c9c7d84cb2e39f4945eff934eddfa1196d597465be5a5
 
 build:
   merge_build_host: true  # [win]
